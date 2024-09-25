@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import { useState, useEffect } from "react";
 import TablaPaginada from "@/components/TablaPaginada";
 import BuscarPalabras from "@/components/BuscarPalabras";

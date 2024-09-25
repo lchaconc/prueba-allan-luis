@@ -1,4 +1,8 @@
 import { useState } from "react";
+import alertify from "alertifyjs";
+import endpoints from "@/_endpoints";
+import { delRecord } from "@/utils/data";
+
 import {
   IoIosArrowDropleftCircle,
   IoIosArrowDroprightCircle,
@@ -30,6 +34,18 @@ export default function TablaPaginada({ data, recordsPerPage }) {
       setCurrentPage(currentPage - 1);
     }
   };
+
+
+  const handleEliminarRegistro =(id)=> {
+    alertify.confirm( "Desea eliminar el resgistro",  
+      async () => {
+        const res = await delRecord( endpoints.delUsuario, id );
+        console.log(res);        
+      }
+      , ()=> console.log("Acción cancelada")
+    
+       )
+  }
 
   return (
     <div className="container mt-4">
@@ -66,7 +82,11 @@ export default function TablaPaginada({ data, recordsPerPage }) {
               <td className="text-center">
                 <HiMiniPencilSquare />
               </td>
-              <td className="text-center">
+              <td               
+              className="text-center"
+              role={"button"}
+              onClick={ ()=> handleEliminarRegistro(record.id)   }
+                >
                 <HiArchiveBoxXMark />
               </td>
             </tr>
