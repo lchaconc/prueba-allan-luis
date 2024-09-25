@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import { PiBroom } from "react-icons/pi";
 
 
 export default function BuscarPalabras({ array, setFiltrados  }) {
@@ -69,9 +70,10 @@ export default function BuscarPalabras({ array, setFiltrados  }) {
       </div>
       <div className="col-sm-2 text-end">
         <button
-        className='btn btn-outline-mep'
+        className='btn btn-outline-secondary'
         onClick={handleReset}
-        >Reiniciar</button>
+        > <PiBroom /> Reiniciar
+        </button>
       </div>
     </div>
   );

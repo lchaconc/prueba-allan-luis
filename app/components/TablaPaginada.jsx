@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { IoIosArrowDropleftCircle, IoIosArrowDroprightCircle } from "react-icons/io";
+import { FaFemale, FaMale } from "react-icons/fa";
 
 
 
@@ -47,7 +48,13 @@ export default function TablaPaginada({ data, recordsPerPage }) {
               <td>{record.nombre}</td>
               <td>{record.apellido}</td>
               <td>{record.correo}</td>
-              <td>{record.genero}</td>
+              <td>{record.genero === "F" ? 
+              <>
+              <FaFemale color="pink" /> F
+              </>
+                 : <>
+                 <FaMale color="blue" /> M
+                 </>  }</td>
             </tr>
           ))}
         </tbody>
