@@ -1,8 +1,4 @@
 import { useState } from "react";
-import alertify from "alertifyjs";
-import endpoints from "@/_endpoints";
-import { delRecord } from "@/utils/data";
-
 import {
   IoIosArrowDropleftCircle,
   IoIosArrowDroprightCircle,
@@ -10,7 +6,7 @@ import {
 import { FaFemale, FaMale } from "react-icons/fa";
 import { HiMiniPencilSquare, HiArchiveBoxXMark } from "react-icons/hi2";
 
-export default function TablaPaginada({ data, recordsPerPage }) {
+export default function TablaPaginada({ data, recordsPerPage, handleEliminarRegistro, handleAbrirModalEdicion }) {
   // Estado para la página actual
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -36,16 +32,7 @@ export default function TablaPaginada({ data, recordsPerPage }) {
   };
 
 
-  const handleEliminarRegistro =(id)=> {
-    alertify.confirm( "Desea eliminar el resgistro",  
-      async () => {
-        const res = await delRecord( endpoints.delUsuario, id );
-        console.log(res);        
-      }
-      , ()=> console.log("Acción cancelada")
-    
-       )
-  }
+  
 
   return (
     <div className="container mt-4">
@@ -79,15 +66,19 @@ export default function TablaPaginada({ data, recordsPerPage }) {
                   </>
                 )}
               </td>
-              <td className="text-center">
-                <HiMiniPencilSquare />
+              <td 
+              className="text-center" 
+              role={"button"}
+              onClick={ () => handleAbrirModalEdicion (record.id)  }
+              >
+                <HiMiniPencilSquare color="green" />
               </td>
               <td               
               className="text-center"
               role={"button"}
               onClick={ ()=> handleEliminarRegistro(record.id)   }
                 >
-                <HiArchiveBoxXMark />
+                <HiArchiveBoxXMark color="red" />
               </td>
             </tr>
           ))}
