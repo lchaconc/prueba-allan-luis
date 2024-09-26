@@ -14,3 +14,19 @@ export async function delRecord(uri, id) {
 
   return await res.json();
 }
+
+
+
+export async function sendData(data, uri, method, id) {
+  method === "PUT" && (uri = `${uri}?id=${id}`);
+
+  const res = await fetch(uri, {
+    method,
+    headers: {
+      'Content-Type': 'application/json', 
+    },
+    body: JSON.stringify(data)
+  });
+
+  return await res.json();
+}

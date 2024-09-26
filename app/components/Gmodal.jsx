@@ -1,11 +1,8 @@
-
-
 import Modal from 'react-bootstrap/Modal';
+import FormUsuarios from './FormUsuarios';
 
-export default function Gmodal({ showModal, setShowModal } ) { 
+export default function Gmodal({ showModal, setShowModal, modoModal, usuarioSeleccionado, guardarDatosForm } ) { 
 
-  
-  
   
 
   return (
@@ -14,11 +11,21 @@ export default function Gmodal({ showModal, setShowModal } ) {
 
       <Modal show={showModal} onHide={ ()=> setShowModal(false)  }>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>
+            {
+              modoModal === "edicion" &&  "Edición de registro"
+            }
+
+          </Modal.Title>
         </Modal.Header>
-        <Modal.Body>Woohoo, you are reading this text in a modal!</Modal.Body>
+        <Modal.Body>
+          <FormUsuarios 
+          usuarioSeleccionado={usuarioSeleccionado}
+          guardarDatosForm={guardarDatosForm}
+            />
+        </Modal.Body>
         <Modal.Footer>
-          pie
+          
         </Modal.Footer>
       </Modal>
   

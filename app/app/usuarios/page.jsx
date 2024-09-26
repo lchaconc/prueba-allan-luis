@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import TablaPaginada from "@/components/TablaPaginada";
 import BuscarPalabras from "@/components/BuscarPalabras";
 import endpoints from "@/_endpoints";
-import { getData, delRecord } from "@/utils/data";
+import { getData, delRecord, sendData } from "@/utils/data";
 import alertify from "alertifyjs";
 import { toast } from "react-toastify";
 import { normalToast } from "@/config/toastify.config";
@@ -17,6 +17,8 @@ export default function Usuarios() {
   const [usuarios, setUsuarios] = useState(null);
   const [filtrados, setFiltrados] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [modoModal, setModoModal] = useState(null);
+  const [usuarioSeleccionado, setUsuarioSeleccionado] = useState(null);
 
   useEffect(() => {
     setup();
@@ -51,17 +53,57 @@ export default function Usuarios() {
   }
 
 
-  const handleAbrirModalEdicion =(id)=> {
+  const handleAbrirModal =(id, modo )=> {
+    if (modo === "edicion") {
     const usuario = usuarios.find( usuario => usuario.id === id  );
-    console.log(usuario);    
-    setShowModal(true)
+    console.log(usuario); 
+    setUsuarioSeleccionado(usuario)       
+    setModoModal("edicion");      
+    }
+
+    if (modo === "nuevo") {
+      setModoModal("nuevo");            
+    }
+    setShowModal(true);
   }
+
+
+
+  const guardarDatosForm = async (datos, id )=> {    
+    setShowModal(false);
+    if (modoModal === "edicion") {
+      const res = await sendData (datos, endpoints.updateUsuario, "PUT", id );
+      
+
+      if (res.success) {
+        toast.success ( res.message, normalToast )
+        setup();           
+        
+      } else {
+        toast.error ( res.message, normalToast )
+      }
+
+    }
+
+
+
+    
+
+  }
+
+
 
 
   return (
     <div className="container">
 
-      <Gmodal showModal={showModal} setShowModal={setShowModal} />
+      <Gmodal 
+      showModal={showModal} 
+      setShowModal={setShowModal} 
+      modoModal={modoModal} 
+      usuarioSeleccionado={usuarioSeleccionado}
+      guardarDatosForm={guardarDatosForm}
+       />
 
       <div className="row mt-2">
         <div className="col-12">
@@ -91,7 +133,7 @@ export default function Usuarios() {
         data={filtrados} 
         recordsPerPage={5} 
         handleEliminarRegistro={handleEliminarRegistro}
-        handleAbrirModalEdicion={handleAbrirModalEdicion}
+        handleAbrirModal={handleAbrirModal}
         />
       ) : (
         <div className="alert alert-info">

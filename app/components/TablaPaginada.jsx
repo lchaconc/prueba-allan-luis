@@ -6,7 +6,7 @@ import {
 import { FaFemale, FaMale } from "react-icons/fa";
 import { HiMiniPencilSquare, HiArchiveBoxXMark } from "react-icons/hi2";
 
-export default function TablaPaginada({ data, recordsPerPage, handleEliminarRegistro, handleAbrirModalEdicion }) {
+export default function TablaPaginada({ data, recordsPerPage, handleEliminarRegistro, handleAbrirModal }) {
   // Estado para la página actual
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -69,7 +69,7 @@ export default function TablaPaginada({ data, recordsPerPage, handleEliminarRegi
               <td 
               className="text-center" 
               role={"button"}
-              onClick={ () => handleAbrirModalEdicion (record.id)  }
+              onClick={ () => handleAbrirModal (record.id, "edicion" )  }
               >
                 <HiMiniPencilSquare color="green" />
               </td>

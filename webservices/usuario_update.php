@@ -5,6 +5,11 @@ require_once 'conexion.php';
 // Definir encabezado para indicar que se retorna JSON
 header('Content-Type: application/json');
 
+// Agregar encabezados para permitir CORS
+header('Access-Control-Allow-Origin: *'); // Permitir todas las orígenes
+header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS'); // Métodos permitidos
+header('Access-Control-Allow-Headers: Content-Type'); // Encabezados permitidos
+
 // Verificar si se recibió una solicitud PUT
 if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
     // Obtener el id desde el parámetro de la URL
