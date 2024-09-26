@@ -16,6 +16,10 @@ export default function Gmodal({ showModal, setShowModal, modoModal, usuarioSele
               modoModal === "edicion" &&  "Edición de registro"
             }
 
+{
+              modoModal === "nuevo" &&  "Insercción de registro"
+            }
+
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>

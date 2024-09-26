@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useState, useEffect } from "react";
 import TablaPaginada from "@/components/TablaPaginada";
 import BuscarPalabras from "@/components/BuscarPalabras";
@@ -8,8 +8,6 @@ import alertify from "alertifyjs";
 import { toast } from "react-toastify";
 import { normalToast } from "@/config/toastify.config";
 import Gmodal from "@/components/Gmodal";
-
-
 
 import { FaUserPlus } from "react-icons/fa6";
 
@@ -33,77 +31,71 @@ export default function Usuarios() {
     setUsuarios(await getData(endpoints.getUsuarios));
   };
 
-
-  const handleEliminarRegistro =(id)=> {
-    alertify.confirm( "Desea eliminar el resgistro",  
+  const handleEliminarRegistro = (id) => {
+    alertify.confirm(
+      "Desea eliminar el resgistro",
       async () => {
-        const res = await delRecord( endpoints.delUsuario, id );
+        const res = await delRecord(endpoints.delUsuario, id);
         console.log(res);
         if (res.success) {
-          toast.success ( res.message, normalToast )
-          setup();           
+          toast.success(res.message, normalToast);
+          setup();
         } else {
-          toast.error ( res.message, normalToast )
+          toast.error(res.message, normalToast);
         }
-              
-      }
-      , ()=> console.log("Acción cancelada")
-    
-       )
-  }
+      },
+      () => console.log("Acción cancelada")
+    );
+  };
 
-
-  const handleAbrirModal =(id, modo )=> {
+  const handleAbrirModal = (id, modo) => {
     if (modo === "edicion") {
-    const usuario = usuarios.find( usuario => usuario.id === id  );
-    console.log(usuario); 
-    setUsuarioSeleccionado(usuario)       
-    setModoModal("edicion");      
+      setUsuarioSeleccionado(usuarios.find((usuario) => usuario.id === id));
+      setModoModal("edicion");
     }
 
     if (modo === "nuevo") {
-      setModoModal("nuevo");            
+      setModoModal("nuevo");
+      setUsuarioSeleccionado(null);
     }
     setShowModal(true);
-  }
+  };
 
-
-
-  const guardarDatosForm = async (datos, id )=> {    
+  const guardarDatosForm = async (datos, id) => {
     setShowModal(false);
     if (modoModal === "edicion") {
-      const res = await sendData (datos, endpoints.updateUsuario, "PUT", id );
-      
+      const res = await sendData(datos, endpoints.updateUsuario, "PUT", id);
 
       if (res.success) {
-        toast.success ( res.message, normalToast )
-        setup();           
-        
+        toast.success(res.message, normalToast);
+        setup();
       } else {
-        toast.error ( res.message, normalToast )
+        toast.error(res.message, normalToast);
       }
-
     }
 
+    if (modoModal === "nuevo") {
+      console.log("Nuevo registro", datos);
+      const res = await sendData(datos, endpoints.insertUsuario, "POST", null);
 
-
-    
-
-  }
-
-
-
+      if (res.success) {
+        toast.success(`${res.message} - ID del registro ${res.id}` , normalToast);
+        setup();
+      } else {
+        toast.error(res.message, normalToast);
+      }
+    }
+  };
 
   return (
     <div className="container">
-
-      <Gmodal 
-      showModal={showModal} 
-      setShowModal={setShowModal} 
-      modoModal={modoModal} 
-      usuarioSeleccionado={usuarioSeleccionado}
-      guardarDatosForm={guardarDatosForm}
-       />
+      <Gmodal
+        showModal={showModal}
+        setShowModal={setShowModal}
+        modoModal={modoModal}
+        usuarioSeleccionado={usuarioSeleccionado}
+        guardarDatosForm={guardarDatosForm}
+      />
 
       <div className="row mt-2">
         <div className="col-12">
@@ -120,7 +112,10 @@ export default function Usuarios() {
         </div>
 
         <div className="col-sm-3 text-end">
-          <button className="btn btn-success">
+          <button
+            className="btn btn-success"
+            onClick={() => handleAbrirModal(null, "nuevo")}
+          >
             <FaUserPlus /> Agregar usuario
           </button>
         </div>
@@ -129,11 +124,11 @@ export default function Usuarios() {
       <BuscarPalabras array={usuarios} setFiltrados={setFiltrados} />
 
       {filtrados ? (
-        <TablaPaginada 
-        data={filtrados} 
-        recordsPerPage={5} 
-        handleEliminarRegistro={handleEliminarRegistro}
-        handleAbrirModal={handleAbrirModal}
+        <TablaPaginada
+          data={filtrados}
+          recordsPerPage={5}
+          handleEliminarRegistro={handleEliminarRegistro}
+          handleAbrirModal={handleAbrirModal}
         />
       ) : (
         <div className="alert alert-info">

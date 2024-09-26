@@ -17,7 +17,7 @@ export default function FormUsuarios({
       genero: refGenero.current.value,
     };
 
-    guardarDatosForm(datos, usuarioSeleccionado.id );
+    guardarDatosForm(datos,  `${usuarioSeleccionado ?  usuarioSeleccionado.id : null }`  );
   };
 
   
@@ -33,7 +33,7 @@ export default function FormUsuarios({
           className="form-control"
           aria-label="Nombre del participante"
           aria-describedby="spnNombre"
-          defaultValue={usuarioSeleccionado.nombre}
+          defaultValue={usuarioSeleccionado ? usuarioSeleccionado.nombre : "" }
           ref={refNombre}
         />
       </div>
@@ -47,7 +47,7 @@ export default function FormUsuarios({
           className="form-control"
           aria-label="apeliido del participante"
           aria-describedby="spnApellido"
-          defaultValue={usuarioSeleccionado.apellido}
+          defaultValue={usuarioSeleccionado ? usuarioSeleccionado.apellido : "" }
           ref={refApellido}
         />
       </div>
@@ -61,7 +61,7 @@ export default function FormUsuarios({
           className="form-control"
           aria-label="correo del trabajo"
           aria-describedby="spnCorreo"
-          defaultValue={usuarioSeleccionado.correo}
+          defaultValue={usuarioSeleccionado ? usuarioSeleccionado.correo : ""}
           ref={refCorreo}
         />
       </div>
@@ -73,7 +73,7 @@ export default function FormUsuarios({
         <select
           className="form-select"
           id="selGenero"
-          defaultValue={usuarioSeleccionado.genero}
+          defaultValue={usuarioSeleccionado ? usuarioSeleccionado.genero : "" }
           ref={refGenero}
         >
           <option value=""> Seleccione un valor </option>
