@@ -1,5 +1,8 @@
 import localFont from "next/font/local";
 import "bootstrap/dist/css/bootstrap.min.css"
+import "alertifyjs/build/css/alertify.min.css"
+import "alertifyjs/build/css/themes/default.min.css"
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const geistSans = localFont({

@@ -1,10 +1,18 @@
 import { useState } from "react";
-import { IoIosArrowDropleftCircle, IoIosArrowDroprightCircle } from "react-icons/io";
-import { FaFemale, FaMale } from "react-icons/fa";
+import {
+  IoIosArrowDropleftCircle,
+  IoIosArrowDroprightCircle,
+} from "react-icons/io";
+import { FaFemale, FaMale, FaQuestion } from "react-icons/fa";
+import { HiOutlinePencilAlt } from "react-icons/hi";
+import { TbTrashXFilled } from "react-icons/tb";
 
-
-
-export default function TablaPaginada({ data, recordsPerPage }) {
+export default function TablaPaginada({
+  data,
+  recordsPerPage,
+  handleEliminarUsuario,
+  handleAbrirModal,
+}) {
   // Estado para la página actual
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -33,12 +41,14 @@ export default function TablaPaginada({ data, recordsPerPage }) {
     <div className="container mt-4">
       <table className="table table-striped table-bordered">
         <thead className="thead-dark">
-          <tr>
+          <tr className="text-center">
             <th>ID</th>
             <th>Nombre</th>
             <th>Apellido</th>
             <th>Correo</th>
             <th>Género</th>
+            <th>Editar</th>
+            <th>Eliminar</th>
           </tr>
         </thead>
         <tbody>
@@ -48,13 +58,36 @@ export default function TablaPaginada({ data, recordsPerPage }) {
               <td>{record.nombre}</td>
               <td>{record.apellido}</td>
               <td>{record.correo}</td>
-              <td>{record.genero === "F" ? 
-              <>
-              <FaFemale color="pink" /> F
-              </>
-                 : <>
-                 <FaMale color="blue" /> M
-                 </>  }</td>
+              <td>
+                {record.genero === "F" ? (
+                  <>
+                    <FaFemale color="pink" />F
+                  </>
+                ) : record.genero === "M" ? (
+                  <>
+                    <FaMale color="blue" />M
+                  </>
+                ) : (
+                  <>
+                    <FaQuestion color="gray" />
+                    Otro
+                  </>
+                )}
+              </td>
+              <td
+                className="text-center"
+                role={"button"}
+                onClick={() => handleAbrirModal(record.id, "edicion")}
+              >
+                <HiOutlinePencilAlt color="green" />
+              </td>
+              <td
+                className="text-center"
+                role={"button"}
+                onClick={() => handleEliminarUsuario(record.id)}
+              >
+                <TbTrashXFilled color="red" />
+              </td>
             </tr>
           ))}
         </tbody>
@@ -66,7 +99,7 @@ export default function TablaPaginada({ data, recordsPerPage }) {
           onClick={prevPage}
           disabled={currentPage === 1}
         >
-          <IoIosArrowDropleftCircle />  Anterior
+          <IoIosArrowDropleftCircle /> Anterior
         </button>
 
         <span>

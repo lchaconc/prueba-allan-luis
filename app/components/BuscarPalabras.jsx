@@ -72,7 +72,7 @@ export default function BuscarPalabras({ array, setFiltrados  }) {
         <button
         className='btn btn-outline-secondary'
         onClick={handleReset}
-        > <PiBroom /> Reiniciar
+        > <PiBroom /> Borrar búsqueda
         </button>
       </div>
     </div>

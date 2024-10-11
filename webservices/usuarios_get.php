@@ -9,7 +9,7 @@ header('Access-Control-Allow-Headers: Content-Type'); // Encabezados permitidos
 
 // Definir encabezado para indicar que se retorna JSON
 header('Content-Type: application/json');
-
+sleep(2);
 // Consulta para obtener todos los registros de la tabla "usuarios"
 $sql = "SELECT id, nombre, apellido, correo, genero FROM usuarios WHERE activo = 1";
 $resultado = $conexion->query($sql);
