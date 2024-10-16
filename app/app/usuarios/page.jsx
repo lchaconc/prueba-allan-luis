@@ -35,7 +35,7 @@ export default function Usuarios() {
   };
 
   const handleEliminarUsuario = (id) => {
-    alertify.confirm(
+    alertify.confirm("Aplicación Usuarios",
       "¿Desea elminar el usuario?",
       async () => {
         const respuesta = await deleteRecord(endpoints.deleteUsuario, id);

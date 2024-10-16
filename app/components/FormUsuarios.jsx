@@ -23,25 +23,15 @@ export default function FormUsuarios({
       genero: refGenero.current.value,
     };
 
-    console.log("Valor actual de seleccionado", seleccionado)
+    console.log("Valor actual de seleccionado", seleccionado);
 
-    if (seleccionado === null ) {
-
+    if (seleccionado === null) {
       console.log("No hago nada");
 
       enviarDatosNuevoUsuario(datos);
-      
-
-    }else{
-
+    } else {
       enviarDatos(datos, seleccionado.id);
-
     }
-
-    
-
-
-
   };
 
   return (
