@@ -1,5 +1,6 @@
 import Modal from "react-bootstrap/Modal";
 import FormUsuarios from "./FormUsuarios";
+import FormUsuariosPrueba from "./FormUsuariosPrueba";
 
 export default function ModalGeneral({
   show,
@@ -22,7 +23,7 @@ export default function ModalGeneral({
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <FormUsuarios
+          <FormUsuariosPrueba
             seleccionado={seleccionado}
             enviarDatos={enviarDatos}
             enviandoDatos={enviandoDatos}
